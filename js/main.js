@@ -42,13 +42,24 @@
         pTimer: null,
         init: function () {
             var me = this;
+            var scale = window.screen.width/675;
+            if (window.screen.width < window.screen.height)
+                $(document.body).css("zoom", scale);
             this.highScore = parseInt(localStorage.getItem("highScore") || "0");
             this.highScoreDisplay = $(".start-container .score");
             this.setInfo("highScore");
-            $("#left").on("click",function(){me.move('L');});
-            $("#right").on("click",function(){me.move('R');});
-            $("#up").on("click",function(){me.move('RT');});
-            $("#down").on("click",function(){me.move('D');});
+            $("#left").on("click", function () {
+                me.move('L');
+            });
+            $("#right").on("click", function () {
+                me.move('R');
+            });
+            $("#up").on("click", function () {
+                me.move('RT');
+            });
+            $("#down").on("click", function () {
+                me.move('D');
+            });
             $(".panel-left").on("click", function () {
                 if (me.holdWord === null) {
                     me.hold();
@@ -63,7 +74,8 @@
             $("#start").on("click", function () {
                 $(".start-container").hide();
                 $(".game-container").show();
-                $(".controller").show();
+                if (window.screen.width < window.screen.height)
+                    $(".controller").show();
                 me.start();
             });
         },
