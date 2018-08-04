@@ -1,32 +1,45 @@
+@charset "UTF-8";
+
 @font-face {
-    font-family: 'TrueTera';
-    src: url('../fonts/TrueTeraG-M.eot') format('embedded-opentype'),
-    url('../fonts/TrueTeraG-M.woff2') format('woff2'),
-    url('../fonts/TrueTeraG-M.woff') format('woff'),
-    url('../fonts/TrueTeraG-M.svg#fontawesomeregular') format('svg');
-    font-weight: normal;
+    font-family: "TrueTera";
+    src: url("../fonts/TrueTeraG-M-subfont.eot"); /* IE9 */
+    src: url("../fonts/TrueTeraG-M-subfont.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    
+    url("../fonts/TrueTeraG-M-subfont.woff") format("woff"), /* chrome、firefox */
+    url("../fonts/TrueTeraG-M-subfont.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+ */
+    
+    url("../fonts/TrueTeraG-M-subfont.svg#TrueTera") format("svg"); /* iOS 4.1- */
     font-style: normal;
+    font-weight: normal;
+}
+
+
+@font-face {
+    font-family: "TimesBD";
+    src: url("../fonts/timesbd.eot"); /* IE9 */
+    src: url("../fonts/timesbd.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    
+    url("../fonts/timesbd.woff") format("woff"), /* chrome、firefox */
+    url("../fonts/timesbd.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+ */
+    
+    url("../fonts/timesbd.svg#TimesBD") format("svg"); /* iOS 4.1- */
+    font-style: normal;
+    font-weight: normal;
 }
 
 @font-face {
-    font-family: 'TimesBD';
-    src: url('../fonts/timesbd.eot') format('embedded-opentype'),
-    url('../fonts/timesbd.woff2') format('woff2'),
-    url('../fonts/timesbd.woff') format('woff'),
-    url('../fonts/timesbd.svg#fontawesomeregular') format('svg');
-    font-weight: bold;
+    font-family: "ZabriskieScript";
+    src: url("../fonts/ZabriskieScript-Bold.eot"); /* IE9 */
+    src: url("../fonts/ZabriskieScript-Bold.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    
+    url("../fonts/ZabriskieScript-Bold.woff") format("woff"), /* chrome、firefox */
+    url("../fonts/ZabriskieScript-Bold.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+ */
+    
+    url("../fonts/ZabriskieScript-Bold.svg#ZabriskieScript") format("svg"); /* iOS 4.1- */
     font-style: normal;
+    font-weight: normal;
 }
 
-@font-face {
-    font-family: 'ZabriskieScript';
-    src: url('../fonts/ZabriskieScript-Bold.eot') format('embedded-opentype'),
-    url('../fonts/ZabriskieScript-Bold.woff2') format('woff2'),
-    url('../fonts/ZabriskieScript-Bold.woff') format('woff'),
-    url('../fonts/ZabriskieScript-Bold.svg#fontawesomeregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
 
 
 body {

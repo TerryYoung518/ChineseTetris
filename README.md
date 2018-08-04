@@ -9,7 +9,7 @@
 
 ### 游戏地址
 
-[点击此处](ChineseTetris.html)
+[点击此处](https://terryyoung518.github.io/ChineseTetris/ChineseTetris.html)
 
 
 ### 操作说明

@@ -13,5 +13,7 @@ var words = {
     ],
     木: "lightgreen",
     林: "#00DD77",
-    森: "seagreen"
+    森: "seagreen",
+    石: "#dbdbdb",
+    磊: "#a2a2a2"
 };
