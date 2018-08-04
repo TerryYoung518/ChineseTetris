@@ -1,0 +1,169 @@
+@font-face {
+    font-family: 'TrueTera';
+    src: url('../fonts/TrueTeraG-M.eot') format('embedded-opentype'),
+    url('../fonts/TrueTeraG-M.woff2') format('woff2'),
+    url('../fonts/TrueTeraG-M.woff') format('woff'),
+    url('../fonts/TrueTeraG-M.svg#fontawesomeregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TimesBD';
+    src: url('../fonts/timesbd.eot') format('embedded-opentype'),
+    url('../fonts/timesbd.woff2') format('woff2'),
+    url('../fonts/timesbd.woff') format('woff'),
+    url('../fonts/timesbd.svg#fontawesomeregular') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ZabriskieScript';
+    src: url('../fonts/ZabriskieScript-Bold.eot') format('embedded-opentype'),
+    url('../fonts/ZabriskieScript-Bold.woff2') format('woff2'),
+    url('../fonts/ZabriskieScript-Bold.woff') format('woff'),
+    url('../fonts/ZabriskieScript-Bold.svg#fontawesomeregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+body {
+    background-color: #a9dbf6;
+    font-size: 100%;
+}
+
+header {
+    color: white;
+    text-align: center;
+}
+
+header h1 {
+    font-family: 'TrueTera';
+    font-size: 2.75em;
+    letter-spacing: 0.15em;
+}
+
+
+header input {
+    display: block;
+    border: none;
+    border-radius: 0.2em;
+    color: white;
+    background-color: deepskyblue;
+    font-family: 'TrueTera';
+    padding: 0.2em 0.1em 0.2em 0.2em;
+    text-align: center;
+    text-decoration: none;
+    font-size: 2em;
+    margin: 1.5em auto;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+}
+
+header p {
+    font-family: 'TimesBD';
+    font-size: 36px;
+    margin: -24px auto;
+}
+
+header .score {
+    font-family: 'ZabriskieScript';
+    font-size: 50px;
+    letter-spacing: 24px;
+    text-indent: 24px;
+    margin: auto auto;
+}
+
+.panel-left {
+    width: 150px;
+    height: 450px;
+    /*background: green;*/
+    margin: 0 0 0 auto;
+}
+
+.panel-middle {
+    width: 300px;
+    height: 450px;
+    background: white;
+    background-image: url("../img/BG.png");
+    background-size: 50px 50px;
+    margin: 0 10px;
+}
+
+.panel-right {
+    width: 150px;
+    height: 450px;
+    /*background: yellow;*/
+    margin: 0 auto 0 0;
+}
+
+.game-container {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.window {
+    width: 100px;
+    height: 100px;
+    margin: 20px auto 10px auto;
+    border: 8px solid white;
+    border-radius: 20px;
+    /*background: blue;*/
+    color: black;
+    line-height: 100px;
+    text-align: center;
+    font-family: 'TrueTera';
+    font-size: 80px;
+}
+
+.window-title {
+    margin: auto auto;
+    text-align: center;
+    font-family: 'TimesBD';
+    color: white;
+    font-size: 32px;
+}
+
+.panel-score {
+    width: 100%;
+    margin: auto auto;
+    text-align: center;
+    color: white;
+}
+
+.panel-score p {
+    font-family: 'TimesBD';
+    font-size: 36px;
+    margin: -24px auto;
+}
+
+.panel-score .score {
+    font-family: 'ZabriskieScript';
+    font-size: 50px;
+    letter-spacing: 24px;
+    text-indent: 24px;
+    margin: auto auto;
+}
+
+.square {
+    position: absolute;
+    width: 46px;
+    height: 46px;
+    color: black;
+    font-family: 'TrueTera';
+    line-height: 46px;
+    text-align: center;
+    font-size: 38px;
+    border: 3px solid white;
+    border-radius: 12px;
+    transform:rotate(0deg);
+}
+
+#canvas {
+    width: 300px;
+    height: 450px;
+    position: relative;
+    overflow: hidden;
+}
