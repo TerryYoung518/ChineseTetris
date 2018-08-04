@@ -45,11 +45,25 @@
             this.highScore = parseInt(localStorage.getItem("highScore") || "0");
             this.highScoreDisplay = $(".start-container .score");
             this.setInfo("highScore");
+            $("#left").on("click",function(){me.move('L');});
+            $("#right").on("click",function(){me.move('R');});
+            $("#up").on("click",function(){me.move('RT');});
+            $("#down").on("click",function(){me.move('D');});
+            $(".panel-left").on("click", function () {
+                if (me.holdWord === null) {
+                    me.hold();
+                }
+            });
+            $(".panel-right").on("click", function () {
+                me.togglePause();
+            });
             $(".game-container").hide();
+            $(".controller").hide();
             $(".start-container").show();
             $("#start").on("click", function () {
                 $(".start-container").hide();
                 $(".game-container").show();
+                $(".controller").show();
                 me.start();
             });
         },

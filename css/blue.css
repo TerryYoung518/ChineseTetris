@@ -180,3 +180,37 @@ header .score {
     position: relative;
     overflow: hidden;
 }
+
+.controller {
+    display: flex;
+    margin: 40px auto auto auto;
+    flex-flow: row wrap;
+}
+
+.controller div {
+    width: 200px;
+}
+
+.controller .left {
+    margin: auto 0 auto auto;
+}
+
+.controller .right {
+    margin: auto auto auto 0;
+}
+
+.controller input {
+    display: block;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    background-color: deepskyblue;
+    font-family: 'TrueTera';
+    padding: 20px 10px 20px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 120px;
+    margin: auto auto 20px auto;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+}
