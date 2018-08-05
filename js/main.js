@@ -31,6 +31,8 @@
         curDeg: 0,
         els: [],
         fallEls: [],
+        checkList: [],
+        relateDel: [],
         isActive: 0,
         isGameOver: 0,
         isRotating: 0,
@@ -43,8 +45,9 @@
         init: function () {
             var me = this;
             var scale = window.screen.width/675;
-            if (window.screen.width < window.screen.height)
+            if (window.screen.width < window.screen.height){
                 $(document.body).css("zoom", scale);
+            }
             this.highScore = parseInt(localStorage.getItem("highScore") || "0");
             this.highScoreDisplay = $(".start-container .score");
             this.setInfo("highScore");
@@ -309,6 +312,7 @@
         },
         play: function () {
             var me = this;
+            this.curSpeed = this.speed;
             this.setInfo("holdWord");
             if (this.score > this.highScore) {
                 localStorage.setItem("highScore", this.score);
@@ -332,7 +336,8 @@
                     var check = null;
                     me.calScore = 0;
                     var scorePower = 1.0;
-                    var checkList = [[me.curWord, me.coordMap(me.curX) +
+                    me.relateDel = [];
+                    me.checkList = [[me.curWord, me.coordMap(me.curX) +
                                       me.coordMap(me.curY) * me.boardWidth]];
                     var fallAnm = function () {
                         if (me.fallEls.length > 0) {
@@ -340,12 +345,13 @@
                             ftimer = setTimeout(fallAnm, 1000 / this.fps);
                         } else {
                             me.isFallingAnm = 0;
-                            if (checkList.length > 0) {
+                            if (me.checkList.length > 0) {
                                 deleteEls = [];
                                 newEls = [];
                                 deleteBoards = [];
                                 anmTime = 0;
                                 ftimer = null;
+                                me.relateDel = [];
                                 me.calScore = 0;
                                 scorePower += 0.5;
                                 check();
@@ -355,14 +361,17 @@
                         }
                     };
                     check = function () {
-                        while (me.checkWords(deleteEls, newEls, deleteBoards, checkList, scorePower)) {
+                        while (me.checkWords(deleteEls, newEls, deleteBoards, scorePower)) {
                             scorePower += 0.25;
                             anmTime = 500;
+                            //console.log(deleteBoards);
                             me.deleteNew(newEls, deleteBoards);
                         }
                         setTimeout(function () {
                             me.score += me.calScore;
                             me.setInfo("score");
+                            
+                            //console.log(deleteEls);
                             newEls.eachdo(function () {
                                 this.appendTo(me.canvas);
                                 me.els.push(this[0]);
@@ -377,7 +386,7 @@
                                     k--;
                                 }
                             }
-                            me.checkFalls(checkList);
+                            me.checkFalls();
                             me.isFallingAnm = 1;
                             ftimer = setTimeout(fallAnm, 1000 / this.fps);
                         }, anmTime);
@@ -477,6 +486,7 @@
                     tempY = me.checkMoveLimit(tempX, tempY) * me.pSize;
                     this[0].style['top'] = (tempY - 1) + 'px';
                     me.markBoard(tempX, tempY, this[1]);
+                    me.checkList.push([this[1], me.coordMap(tempX)+me.coordMap(tempY)*me.boardWidth]);
                     me.fallEls.splice(k, 1);
                     k--;
                 }
@@ -563,16 +573,20 @@
             y = this.coordMap(y);
             this.board[x + y * this.boardWidth] = word;
         },
-        checkWords: function (deleteEls, newEls, deleteBoards, checkList, scorePower) {
+        checkWords: function (deleteEls, newEls, deleteBoards, scorePower) {
             //console.log("【checkWords】");
             var me = this;
             var bool = false;
+            var checkList = me.checkList;
             if (!checkList[0]) return false;
             if (checkList.length > 1) bool = true;
+            //console.log(checkList[0]);
             var curWord = checkList[0][0];
             var curX = checkList[0][1] % this.boardWidth;
             var curY = Math.floor(checkList[0][1] / this.boardWidth);
+            //console.log(curX + "," + curY);
             var boardChange = [];
+            var newRelateDel = [];
             var combNum = 0;
             var curColor = this.curWordEl.css("background-color");
             for (var i = 0; i < words.comb.length; i++) {
@@ -587,9 +601,10 @@
                             this.boardPos(curX, curY)) {
                             var match = true;
                             for (var k = 0; k < h * w; k++) {
-                                if (this.readLines(lines, k) !==
-                                    this.boardPos(curX - j % w + k % w, curY -
-                                        Math.floor(j / w) + Math.floor(k / w)) &&
+                                var b = this.boardPos(curX - j % w + k % w, curY -
+                                        Math.floor(j / w) + Math.floor(k / w));
+                                if ((this.readLines(lines, k) !== b
+                                     || b==="0") &&
                                     this.readLines(lines, k) !== "0") {
                                     match = false;
                                     break;
@@ -602,6 +617,7 @@
                                 var isNewCreate = false;
                                 var color = this.getColor(equation[1]);
                                 var wordNum = 0;
+                                var relate = [];
                                 this.els.eachdo(function (k) {
                                     var x = me.coordMap(parseInt(this.style["left"], 10));
                                     var y = me.coordMap(parseInt(this.style["top"], 10));
@@ -631,35 +647,52 @@
                                         deleteEls.push(k);
                                         var newEl = me.createSquare(x * 50, y * 50, color, equation[1]);
                                         //console.log(x*50+","+me.curX+","+y*50+","+me.curY);
-                                        if (!isNewCreate && (x != curX || y != curY)) {
+                                        if (!isNewCreate && !me.existNew(newEls,x,y) && deleteBoards.indexOf(x + y * me.boardWidth) === -1) {
+                                            //console.log("new:"+(x + y * me.boardWidth)+","+equation[1]);
                                             newEls.push(newEl);
                                             isNewCreate = true;
                                         } else {
-                                            deleteBoards.push(x + y * me.boardWidth);
+                                            me.deleteBoardsAdd(deleteBoards, x + y * me.boardWidth);
+                                            //deleteBoards.push(x + y * me.boardWidth);
                                         }
+                                        relate.push(x + y * me.boardWidth);
                                         boardChange.push([x + y * me.boardWidth, equation[1]]);
                                     }
                                 });
+                                newRelateDel.push(relate);
                                 me.calScore += parseInt((1 + (combNum - 1) * 0.1) * wordNum * 100 * scorePower);
                             } //match
                         }
                     }
                 } //checkcomb
             } //comblist
-            if (combNum > 1 && curWord === this.curWord) {
+            if (combNum > 1 && curX === this.coordMap(this.curX) &&  curY === this.coordMap(this.curY)) {
                 this.curWordEl.css("background-color", curColor);
+            }
+            for (var j = 0; j < newRelateDel.length; j++) {
+                this.relateDel.push(newRelateDel[j]);
             }
             for (var j = 0; j < boardChange.length; j++) {
                 this.board[boardChange[j][0]] = boardChange[j][1];
-                checkList.push([boardChange[j][1], boardChange[j][0]]);
+                var add = true;
+                for(var k = 0; k < checkList.length;k++){
+                    if(checkList[k][1] === boardChange[j][0]){
+                        //console.log(checkList[k][0]+","+boardChange[j][1]);
+                        checkList[k][0] = boardChange[j][1];
+                        add = false;
+                        break;
+                    }
+                }
+                if(add)checkList.push([boardChange[j][1], boardChange[j][0]]);
             }
             checkList.shift();
             return bool;
         },
-        checkFalls: function (checkList) {
+        checkFalls: function () {
             var me = this;
             var isBottom = [];
             var fallIndex = [];
+            var checkList = me.checkList;
             for (var i = 0; i < this.boardWidth; i++) {
                 isBottom.push(false);
             }
@@ -680,7 +713,6 @@
                 for (var i = 0; i < fallIndex.length; i++) {
                     if (x + y * me.boardWidth == fallIndex[i][0]) {
                         me.fallEls.push([el, fallIndex[i][1]]);
-                        checkList.push([fallIndex[i][1], fallIndex[i][0]]);
                         break;
                     }
                 }
@@ -699,6 +731,31 @@
                     }
                 }
             });
+        },
+        existNew: function (newEls, curX, curY) {
+            var me = this;
+            var bool = false;
+            newEls.eachdo(function (k) {
+                var x = me.coordMap(parseInt(this.css("left"), 10));
+                var y = me.coordMap(parseInt(this.css("top"), 10));
+                if(curX == x && curY == y){
+                    bool = true;
+                    return;
+                }
+            });
+            return bool;
+        },
+        deleteBoardsAdd: function(deleteBoards, l){
+            var exist = false;
+            for(var i=0;i<this.relateDel.length;i++){
+                if(this.relateDel[i].indexOf(l)>=0){
+                    for(var j=0;j<this.relateDel[i].length;j++){
+                        deleteBoards.push(this.relateDel[i][j]);
+                    }
+                    exist = true;
+                }
+            }
+            if(!exist)deleteBoards.push(l);
         },
         boardPos: function (x, y) {
             if (x < 0 || x >= this.boardWidth || y < 0 || y >= this.boardHeight) {
@@ -743,6 +800,14 @@ function decodeUnicode(str) {
 if (!Array.prototype.eachdo) {
     Array.prototype.eachdo = function (fn) {
         for (var i = 0; i < this.length; i++) {
+            fn.call(this[i], i);
+        }
+    };
+}
+
+if (!Array.prototype.eachdoR) {
+    Array.prototype.eachdoR = function (fn) {
+        for (var i = this.length-1; i >= 0 ; i--) {
             fn.call(this[i], i);
         }
     };
