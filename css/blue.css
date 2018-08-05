@@ -13,7 +13,6 @@
     font-weight: normal;
 }
 
-
 @font-face {
     font-family: "TimesBD";
     src: url("../fonts/timesbd.eot"); /* IE9 */
@@ -127,7 +126,7 @@ header .score {
     color: black;
     line-height: 100px;
     text-align: center;
-    font-family: 'TrueTera';
+    font-family: 'TrueTera','YouYuan';
     font-size: 80px;
 }
 
@@ -165,7 +164,7 @@ header .score {
     width: 46px;
     height: 46px;
     color: black;
-    font-family: 'TrueTera';
+    font-family: 'TrueTera','YouYuan';
     line-height: 46px;
     text-align: center;
     font-size: 38px;

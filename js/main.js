@@ -419,12 +419,15 @@
             var me = this;
             var tempX = this.curX;
             var tempY = this.curY;
+            var speed = this.curSpeed;
             switch (dir) {
                 case 'L':
+                    this.curSpeed = 0;
                     s = 'left';
                     tempX -= $distance;
                     break;
                 case 'R':
+                    this.curSpeed = 0;
                     s = 'left';
                     tempX += $distance;
                     break;
@@ -447,9 +450,11 @@
             if (this.checkMove(tempX, tempY)) { //检查移动
                 var l = {};
                 l[s] = dir === 'L' ? "-=" + $distance + "px" : "+=" + $distance + "px";
-                this.curWordEl.animate(l, $time, $easing);
+                this.curWordEl.animate(l, $time, $easing, function(){me.curSpeed=speed});
                 this.curX = tempX; //更新当前坐标
                 this.curY = tempY;
+            }else{
+                this.curSpeed = speed;
             }
         },
         fall: function ($speed = 0.5) {
