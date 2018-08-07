@@ -206,10 +206,33 @@ header .score {
     background-color: deepskyblue;
     font-family: 'TrueTera';
     padding: 20px 10px 20px 20px;
-    text-align: center;
     text-decoration: none;
     font-size: 120px;
     margin: auto auto 20px auto;
     cursor: pointer;
     letter-spacing: 0.1em;
+}
+
+.alert {
+    position: absolute;
+    width: 360px;
+    height: auto;
+    margin: auto;
+    padding: 10px;
+    left: 0;
+    right: 0;
+    top:180px;
+    z-index:1002;
+    overflow: auto;
+    background-color: #a9dbf6;
+    color: white;
+    font-family: 'TrueTera';
+    border: 10px solid white;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 40px;
+}
+
+.alert span{
+    font-family: 'ZabriskieScript';
 }

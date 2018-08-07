@@ -11,6 +11,10 @@
 
 <body>
     <div style="display:none"><img src='img/share.png' /></div>
+    <div class="alert" style="display:none">
+        關卡　<span id="level">01</span><br>
+        目標分數　<span id="level-score">000000</span>
+    </div>
     <div class="start-container">
         <header>
             <h1>漢字俄羅斯方塊</h1>
@@ -21,7 +25,7 @@
             <p>best score</p>
         </header>
     </div>
-    <div class="game-container">
+    <div class="game-container" style="display:none">
 
         <!-- HOLD -->
         <div class="panel-left">
@@ -54,7 +58,7 @@
         </div>
 
     </div>
-    <div class="controller">
+    <div class="controller" style="display:none">
         <div class="left">
             <input type="button" id="left" value="左">
         </div>
