@@ -12,8 +12,8 @@
 ### 游戏地址
 
 [点击此处](https://terryyoung518.github.io/ChineseTetris/ChineseTetris.html)  
-微信小程序版本正在开发中，欢迎参与测试
-![](/img/wccode.jpg)
+微信小程序版本正在开发中，欢迎参与测试  
+![](/img/wccode.jpg)  
 感谢 **陈智龙** 负责本项目小程序的移植工作。
 
 ### 操作说明
